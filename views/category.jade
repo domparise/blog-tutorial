@@ -1,0 +1,6 @@
+html
+    body
+        h1= category
+        each article in articles
+            a(href='/blog/'+article.category+'/'+article.id)= article.title
+            p= article.content.substr(0,200)+'...'

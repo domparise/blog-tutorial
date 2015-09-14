@@ -1,0 +1,16 @@
+html
+    body
+        form.article(method='post',action='/admin/edit')
+            input(type='hidden',name='pw',value='yolo')
+            input(type='hidden',name='id',value=article.id)
+            input(type='text',name='title',value=article.title)
+            input(type='text',name='category',value=article.category)
+            input(type='text',name='content',value=article.content)
+            input(type='submit',value='Submit')
+        .comments
+            each comment in comments
+                p= comment.content
+                form(method='post',action='/admin/remove-comment')
+                    input(type='hidden',name='pw',value='yolo')
+                    input(type='hidden',name='id',value=comment.id)
+                    input(type='hidden',name='articleid',value=article.id)

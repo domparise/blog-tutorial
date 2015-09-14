@@ -1,0 +1,9 @@
+html
+    body
+        .article
+            h1= article.title
+            h3= article.category
+            p= article.content
+        .comments
+            each comment in comments
+                p= comment.content
