@@ -1,7 +1,8 @@
 html
     body
-        form.article(method='post',action='/admin/new')
-            input(type='hidden',name='pw',value='yolo')
+
+        form.article(method='post',action='/admin/article/new')
+            input(type='hidden',name='pw',value=pw)
             input(type='text',name='title',value='')
             input(type='text',name='category',value='')
             input(type='text',name='content',value='')

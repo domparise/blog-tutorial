@@ -2,16 +2,14 @@ html
     body
 
         form(method='post',action='/admin/new')
-            input(type='hidden',name='pw',value='yolo')
+            input(type='hidden',name='pw',value=pw)
             input(type='submit',value='New Article') 
 
-        each article in articles
-            p= article.category
-            p= article.title
-            form(method='post',action='/admin/edit')
-                input(type='hidden',name='pw',value='yolo')
-                input(type='hidden',name='id',value=article.id)
-                input(type='submit',value='Edit')
-            form(method='post',action='/admin/remove')
-                input(type='hidden',name='pw',value='yolo')
-                input(type='submit',value='Delete') 
+        each articles,category in categories
+            h2= category
+            each article in articles
+                p= article.title
+                form(method='post',action='/admin/edit')
+                    input(type='hidden',name='pw',value=pw)
+                    input(type='hidden',name='id',value=article.id)
+                    input(type='submit',value='Edit')
