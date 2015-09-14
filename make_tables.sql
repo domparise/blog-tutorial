@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS `Comment`;
-DROP TABLE IF EXISTS `Article`;
+CREATE DATABASE blog;
+USE blog;
+
 CREATE TABLE `Article` (
     `id` INT AUTO_INCREMENT NOT NULL,
     `category` VARCHAR(100) NOT NULL,
