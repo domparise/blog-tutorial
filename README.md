@@ -7,4 +7,7 @@
 to set up:  
 npm install  // install node_modules/:  
 mysql < make_tables.sql  // setup the mysql database  
-
+  
+to run:  
+node index.js  
+  
