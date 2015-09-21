@@ -1,9 +1,12 @@
+// connect to mysql database
 var sql = require('mysql').createPool({ host: 'localhost', user: 'root', password: 'sql', database: 'blog'})
 module.exports = function (app) {
     
+    // our blog http://localhost:5000/ has 2 categories
+    // /work, /play 
     app.get('/:category', function (req, res) {
         var category = req.params.category;
-        if (category === 'work' || category === 'play' && category !== 'admin') {
+        if (category === 'work' || category === 'play') {
             sql.query('SELECT * FROM Article WHERE category=?;', [category], function (err, articles) {
                 if (err) throw err
                 return res.render('category', {articles:articles,category:category})
@@ -13,9 +16,10 @@ module.exports = function (app) {
         }
     })
 
+    // /work/1, /play/4
     app.get('/:category/:article', function (req, res) {
         var category = req.params.category;
-        if (category === 'work' || category === 'play' && category !== 'admin') {
+        if (category === 'work' || category === 'play') {
             var articleid = req.params.article
             sql.query('SELECT * FROM Article WHERE id=?', [articleid], function (err, articles) {
                 if (err) throw err

@@ -8,7 +8,7 @@ CREATE TABLE `Article` (
     `content` TEXT NOT NULL,
     `ts` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 CREATE TABLE `Comment` (
     `id` INT AUTO_INCREMENT NOT NULL,
@@ -18,4 +18,4 @@ CREATE TABLE `Comment` (
     `articleid` INT NOT NULL,
     FOREIGN KEY (`articleid`) REFERENCES Article(`id`) ON DELETE CASCADE,
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);

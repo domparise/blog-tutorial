@@ -1,9 +1,12 @@
 module.exports = function (app) {
 
+    // expose the read-only routes
     require(__dirname+'/blog')(app)
 
+    // weak authentication / security
     app.use(authentication)
     
+    // the 'logged in' portion of the app/site
     require(__dirname+'/admin')(app)
 
 }

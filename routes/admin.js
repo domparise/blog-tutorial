@@ -1,20 +1,27 @@
+// connect to mysql database
 var sql = require('mysql').createPool({ host: 'localhost', user: 'root', password: 'sql', database: 'blog'})
 module.exports = function (app) {
 
+    // acts as the login
     app.post('/admin', function (req, res) {
         sql.query('SELECT title,category,id FROM Article', function (err, articles) {
             return res.render('admin', {categories: makeCategories(articles),pw:req.body.pw})
         })
     })
 
+    // form input for new article
     app.post('/admin/new', function (req,res) {
         return res.render('article-new',{pw:req.body.pw})
     })
 
+    // form input to edit an article
     app.post('/admin/edit', function (req,res) {
         return renderArticleAndComments('article-edit', req.body.id, req, res)
     })
 
+    // the rest is the 'api'
+
+    // add a new article
     app.post('/admin/article/new', function (req, res) {
         sql.query('INSERT INTO Article (title,category,content) VALUES (?,?,?)', [req.body.title,req.body.category,req.body.content], function (err, result) {
             if (err) throw err
@@ -22,6 +29,7 @@ module.exports = function (app) {
         })
     })
 
+    // edit an article
     app.post('/admin/article/edit', function (req, res) {
         sql.query('UPDATE Article SET title=?, category=?, content=? WHERE id=?', [req.body.title,req.body.category,req.body.content,req.body.id], function (err) {
             if (err) throw err
@@ -29,6 +37,7 @@ module.exports = function (app) {
         })
     })
 
+    // remove an article
     app.post('/admin/article/remove', function (req, res) {
         sql.query('DELETE FROM Article WHERE id=?',[req.body.id], function (err) {
             if (err) throw err
@@ -39,6 +48,7 @@ module.exports = function (app) {
         })
     })
 
+    // remove a comment
     app.post('/admin/article/remove-comment', function (req, res) {
         sql.query('DELETE FROM Comment WHERE id=?', [req.body.id], function (err) {
             if (err) throw err
@@ -49,6 +59,9 @@ module.exports = function (app) {
 
 }
 
+/* 
+    takes the request and renders the full article
+*/
 function renderArticleAndComments (view, articleid, req, res) {
     sql.query('SELECT * FROM Article WHERE id=?',[articleid], function (err, articles) {
         if (err) throw err
